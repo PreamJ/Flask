@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://inf.bodin.ac.th/resource/css/core/appstyle.css">
+        <link rel="stylesheet" href="https://inf.bodin.ac.th/resource/css/core/stylevar.css">
+		<link rel="stylesheet" href="https://inf.bodin.ac.th/resource/css/core/colortheme.css">
+		<link rel="stylesheet" href="https://inf.bodin.ac.th/resource/css/core/customize.css">
+		<link rel="stylesheet" href="https://inf.bodin.ac.th/resource/css/core/appobj.css">
+		<link rel="stylesheet" href="https://inf.bodin.ac.th/resource/css/core/forms.css">
+		<script type="text/javascript" src="https://inf.bodin.ac.th/resource/js/lib/jquery.min.js"></script>
+		<script type="text/javascript" src="https://inf.bodin.ac.th/resource/js/core/appscript.js"></script>
+		<script type="text/javascript" src="https://inf.bodin.ac.th/resource/js/lib/smooth-scroll.min.js"></script>
+        <style type="text/css">
+            @import url('//fonts.googleapis.com/css2?family=Akaya+Telivigala&family=Balsamiq+Sans&family=Bitter&family=Caladea:wght@700&family=Charm&family=Charmonman&family=Cormorant+Upright:wght@700&family=Dancing+Script:wght@400;600&family=Dosis:wght@500&family=Google+Sans&family=IBM+Plex+Sans+Thai&family=Itim&family=Kanit:wght@200&family=Kodchasan:wght@200;300&family=Krub:wght@300&family=Mali:wght@300&family=Modak&family=Open+Sans&family=Oswald:wght@700&family=Permanent+Marker&family=Prompt&family=Quicksand:wght@600&family=Ranchers&family=Roboto:wght@300&family=Sarabun:wght@300&family=Srisakdi&display=swap');
+            /* @import url('https://inf.bodin.ac.th/resource/css/core/appfont.css');
+            @import url('https://inf.bodin.ac.th/resource/css/core/tclfont.css'); */
+            @import url('//fonts.googleapis.com/icon?family=Material+Icons');
+            main {
+                margin-top: 0 !important;
+                min-height: var(--window-height) !important;
+            }
+        </style>
+        <style type="text/css" class="theme" media="only screen and (max-width: 0px)">
+            :root, [data-dark="false"], .player, iframe { filter: invert(100%) hue-rotate(180deg); }
+        </style>
+        <script type="text/javascript">
+            const isSafari = (navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") < 0);
+            $(function(){
+                // SEO & lighthouse
+                document.querySelector("html").setAttribute("lang", ppa.getCookie("set_lang"));
+                document.querySelectorAll("html body img:not([alt])").forEach((ei) => {
+                    let alt = $(ei).attr("src").split("/").at(-1);
+                    ei.setAttribute("alt", alt);
+                });
+                // App
+                var main_height = $("html body main").height();
+                // Resizing
+                var $window = $(window).on('resize', function(){
+                    $("html body").css("--window-height", $(window).height().toString()+"px");
+                }).trigger('resize');
+                // ppa.check_lang(); ppa.check_theme(); ppa.color_up_codes(); sys.back.start();
+                if (self != top) {
+                    $("html > body").addClass("nohbar");
+                    $("body > header").remove();
+                    $("body > aside.navigator_tab").remove();
+                    $("body > footer").remove();
+                } // else ppa.console_proof();
+                $("a:not([draggable]), img:not([draggable])").attr("draggable", "false");
+                // $('button:not(.ripple-click):not([onClick^="return "]):not([data-title]):not(.dont-ripple), a[role="button"]:not(.ripple-click):not([onClick^="return "]):not([data-title]):not(.dont-ripple)').addClass("ripple-click"); ppa.ripple_click_program();
+                /*if (!/^\/((s|t)\/)?$/.test(location.pathname))*/ $('aside.navigator_tab section.nav ul > li > a[href="'+location.pathname+'"]').parent().addClass("this-page");
+                // Google Analytics
+                /* window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag("js", new Date());	gtag("config", "UA-36913607-3"); */
+                // URL
+                if (/(^\?|&)(openExternalBrowser=1|fbclid=([^&])+)/.test(location.search)) {
+                    let ns = location.search.substr(1).split("&").filter(ep => !(ep.startsWith("fbclid=") || ep=="openExternalBrowser=1")).join("&");
+                    history.replaceState(null, null, location.pathname+(ns.length ? "?"+ns : "")+location.hash);
+                }
+            });
+            // Scrolling
+            $(document).scroll(function() {
+                // setHash($(document).scrollTop());
+                $("html body aside.up").css("display", (($(document).scrollTop() > $(window).height() - 50)?"block":"none"));
+                if ($(document).scrollTop()>0) $("html body header:not(.scrolled)").addClass("scrolled");
+                else $("html body header.scrolled").removeClass("scrolled");
+            });
+            function smooth_scrolling(event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function(){
+                        window.location.hash = hash;
+                    });
+                }
+            }
+            $("a").on('click', function(event) { smooth_scrolling(event); });
+            function openInBrowser() {
+                const TUL = top.location, userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                if (/(Line|line(-poker)?)/.test(userAgent)) {
+                    let URL = {
+                        page: TUL.protocol+"//"+TUL.hostname+TUL.pathname,
+                        query: TUL.search+(TUL.search.length ? "&" : "?")+"openExternalBrowser=1"
+                    }; TUL.assign(URL.page+URL.query+TUL.hash);
+                    delete URL;
+                } else if (/(FBA(N|V)|facebookexternalhit)/.test(userAgent)) {
+        
+                } delete TUL; if (isSafari) {
+                    var actionCourse = document.createElement("script"), thisPage = location.href;
+                    actionCourse.onload = function() { location = "googlechromme://navigate?url=" + encodeURIComponent(thisPage); }
+                    actionCourse.onerror = function() { location = thisPage; }
+                    document.head.appendChild(actionCourse);
+                }
+            } // <?php echo 'if ('.intval(isset($forceExternalBrowser) && $forceExternalBrowser).' || isSafari) openInBrowser();'; ?>
+        </script>
+  </head>
+  <body>
+    <main>
