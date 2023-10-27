@@ -1,0 +1,18 @@
+    Install library
+1) pip install -U Flask Authlib requests
+2) pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+3) pip install authlib 
+
+    ggsheet.py
+1) line 13 - google sheet ID
+2) line 14 - range of cell in google sheet.
+
+    In google sheet
+1) Add name into the first column of google sheet according to range from ggsheet file
+2) Add google form id into second coulumn of google sheet according to range from ggsheet file
+
+    app.py
+1) line 31 - Client ID
+2) line 32 - Client secret
+3) Use command flask run to run a flask application
+4) Open with http://localhost:5000
